@@ -11,7 +11,8 @@ import {
 } from 'antd'
 import { EyeInvisibleOutlined, EyeTwoTone } from '@ant-design/icons'
 import { useFirebase } from 'react-redux-firebase'
-const { Title, Link } = Typography
+import { PasswordReset } from '../PasswordReset'
+const { Title } = Typography
 
 const LoginForm = (props) => {
   const firebase = useFirebase()
@@ -60,7 +61,7 @@ const LoginForm = (props) => {
               direction="vertical"
               style={{ width: '100%' }}>
               <Button type="primary">Sign in with Google</Button>
-              <Link href="/pw-reset">Forgot password?</Link>
+              <PasswordReset />
             </Space>
           </Form>
         </Card>

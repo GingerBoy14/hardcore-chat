@@ -11,7 +11,7 @@ import {
 } from 'antd'
 import { EyeInvisibleOutlined, EyeTwoTone } from '@ant-design/icons'
 import { useFirebase } from 'react-redux-firebase'
-const { Title, Link } = Typography
+const { Title } = Typography
 
 const SignUpForm = (props) => {
   const firebase = useFirebase()
@@ -22,6 +22,9 @@ const SignUpForm = (props) => {
   }
   const onFinishFailed = (errorInfo) => {
     console.log('Failed:', errorInfo)
+  }
+  const loginWithGoogle = () => {
+    return firebase.login({ provider: 'google' })
   }
   return (
     <Row justify="center" align="middle" style={{ height: '100%' }}>
@@ -53,7 +56,7 @@ const SignUpForm = (props) => {
             </Form.Item>
             <Form.Item>
               <Button type="primary" htmlType="submit" block>
-                Login
+                Register
               </Button>
             </Form.Item>
             <Divider>OR</Divider>
@@ -61,8 +64,9 @@ const SignUpForm = (props) => {
               align="center"
               direction="vertical"
               style={{ width: '100%' }}>
-              <Button type="primary">Sign in with Google</Button>
-              <Link href="/pw-reset">Forgot password?</Link>
+              <Button type="primary" onClick={loginWithGoogle}>
+                Sign in with Google
+              </Button>
             </Space>
           </Form>
         </Card>
