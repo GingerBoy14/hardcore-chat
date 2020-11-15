@@ -10,8 +10,9 @@ import {
   Row
 } from 'antd'
 import { EyeInvisibleOutlined, EyeTwoTone } from '@ant-design/icons'
+import { Link } from 'react-router-dom'
 import { useFirebase } from 'react-redux-firebase'
-const { Title } = Typography
+const { Title, Text } = Typography
 
 const SignUpForm = (props) => {
   const firebase = useFirebase()
@@ -70,6 +71,16 @@ const SignUpForm = (props) => {
             </Space>
           </Form>
         </Card>
+        <Space
+          align="center"
+          style={{ width: '100%', paddingTop: '12px' }}
+          direction="vertical"
+          size="middle">
+          <Text>
+            Already have a account?
+            <Link to="/">Login</Link>
+          </Text>
+        </Space>
       </Col>
     </Row>
   )

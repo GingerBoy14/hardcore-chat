@@ -9,10 +9,11 @@ import {
   Col,
   Row
 } from 'antd'
+import { Link } from 'react-router-dom'
 import { EyeInvisibleOutlined, EyeTwoTone } from '@ant-design/icons'
 import { useFirebase } from 'react-redux-firebase'
 import { PasswordReset } from '../PasswordReset'
-const { Title } = Typography
+const { Title, Text } = Typography
 
 const LoginForm = (props) => {
   const firebase = useFirebase()
@@ -65,6 +66,16 @@ const LoginForm = (props) => {
             </Space>
           </Form>
         </Card>
+        <Space
+          align="center"
+          style={{ width: '100%', paddingTop: '12px' }}
+          direction="vertical"
+          size="middle">
+          <Text>
+            Don't have a account?
+            <Link to="/signup">Sign up</Link>
+          </Text>
+        </Space>
       </Col>
     </Row>
   )
