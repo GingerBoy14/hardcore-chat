@@ -23,6 +23,9 @@ const LoginForm = (props) => {
   const onFinishFailed = (errorInfo) => {
     console.log('Failed:', errorInfo)
   }
+  const loginWithGoogle = () => {
+    return firebase.login({ provider: 'google' })
+  }
   return (
     <Row justify="center" align="middle" style={{ height: '100%' }}>
       <Col xs={24} sm={20} md={14} lg={10} xl={8} xxl={6} justify="center">
@@ -61,7 +64,9 @@ const LoginForm = (props) => {
               align="center"
               direction="vertical"
               style={{ width: '100%' }}>
-              <Button type="primary">Sign in with Google</Button>
+              <Button type="primary" onClick={loginWithGoogle}>
+                Sign in with Google
+              </Button>
               <PasswordReset />
             </Space>
           </Form>

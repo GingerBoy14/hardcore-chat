@@ -14,18 +14,20 @@ import { Link } from 'react-router-dom'
 import { useFirebase } from 'react-redux-firebase'
 const { Title, Text } = Typography
 
+const createNewUser = (firebase, { email, password }) => {
+  return firebase.createUser({ email, password }, { email })
+}
 const SignUpForm = (props) => {
   const firebase = useFirebase()
   const onFinish = (values) => {
-    const { email, password } = values
     //TODO catch error: "The email address is already in use by another account."
-    firebase.auth().createUserWithEmailAndPassword(email, password)
+    createNewUser(firebase, values)
   }
   const onFinishFailed = (errorInfo) => {
     console.log('Failed:', errorInfo)
   }
   const loginWithGoogle = () => {
-    return firebase.login({ provider: 'google' })
+    firebase.login({ provider: 'google', type: 'popup' })
   }
   return (
     <Row justify="center" align="middle" style={{ height: '100%' }}>
