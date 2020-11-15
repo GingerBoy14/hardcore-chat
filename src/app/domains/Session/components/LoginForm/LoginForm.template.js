@@ -24,7 +24,7 @@ const LoginForm = (props) => {
     console.log('Failed:', errorInfo)
   }
   const loginWithGoogle = () => {
-    return firebase.login({ provider: 'google' })
+    firebase.login({ provider: 'google', type: 'popup' })
   }
   return (
     <Row justify="center" align="middle" style={{ height: '100%' }}>

@@ -4,7 +4,7 @@ import {
   UserIsAuthenticated,
   UserIsNotAuthenticated
 } from './domains/Session/hoc'
-import { Switch, Route } from 'react-router-dom'
+import { Switch, Route, Redirect } from 'react-router-dom'
 import 'antd/dist/antd.css'
 
 const App = (props) => {
@@ -13,6 +13,7 @@ const App = (props) => {
       <Route path="/chat" component={UserIsAuthenticated(Chat)} />
       <Route path="/signup" component={UserIsNotAuthenticated(SignUp)} />
       <Route path="/" component={UserIsNotAuthenticated(Login)} />
+      <Redirect to="/" />
     </Switch>
   )
 }
