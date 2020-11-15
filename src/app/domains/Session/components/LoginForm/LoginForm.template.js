@@ -13,6 +13,7 @@ import { Link } from 'react-router-dom'
 import { EyeInvisibleOutlined, EyeTwoTone } from '@ant-design/icons'
 import { useFirebase } from 'react-redux-firebase'
 import { PasswordReset } from '../PasswordReset'
+import { LoginWithGoogle } from '../LoginWithGoogle'
 const { Title, Text } = Typography
 
 const LoginForm = (props) => {
@@ -64,9 +65,8 @@ const LoginForm = (props) => {
               align="center"
               direction="vertical"
               style={{ width: '100%' }}>
-              <Button type="primary" onClick={loginWithGoogle}>
-                Sign in with Google
-              </Button>
+              <LoginWithGoogle />
+
               <PasswordReset />
             </Space>
           </Form>

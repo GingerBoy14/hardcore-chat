@@ -12,6 +12,7 @@ import {
 import { EyeInvisibleOutlined, EyeTwoTone } from '@ant-design/icons'
 import { Link } from 'react-router-dom'
 import { useFirebase } from 'react-redux-firebase'
+import { LoginWithGoogle } from '../LoginWithGoogle'
 const { Title, Text } = Typography
 
 const createNewUser = (firebase, { email, password }) => {
@@ -21,14 +22,19 @@ const SignUpForm = (props) => {
   const firebase = useFirebase()
   const onFinish = (values) => {
     //TODO catch error: "The email address is already in use by another account."
-    createNewUser(firebase, values)
+    createNewUser(firebase, values).then(({ user }) => {
+      firebase.push('chats', user.uid).then((data) => {
+        firebase.uniqueSet(`chats/${data.key}/members`, [user.uid])
+      })
+      firebase
+        .uniqueSet(`users/${user.uid}`, { id: user.uid })
+        .catch((err) => console.log(err))
+    })
   }
   const onFinishFailed = (errorInfo) => {
     console.log('Failed:', errorInfo)
   }
-  const loginWithGoogle = () => {
-    firebase.login({ provider: 'google', type: 'popup' })
-  }
+
   return (
     <Row justify="center" align="middle" style={{ height: '100%' }}>
       <Col xs={24} sm={20} md={14} lg={10} xl={8} xxl={6} justify="center">
@@ -67,9 +73,7 @@ const SignUpForm = (props) => {
               align="center"
               direction="vertical"
               style={{ width: '100%' }}>
-              <Button type="primary" onClick={loginWithGoogle}>
-                Sign in with Google
-              </Button>
+              <LoginWithGoogle />
             </Space>
           </Form>
         </Card>
