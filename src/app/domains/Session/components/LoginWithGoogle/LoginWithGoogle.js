@@ -7,12 +7,18 @@ const LoginWithGoogle = () => {
   const loginWithGoogle = () => {
     //TODO rewrite: when sighup you need add user to RTDB, when login you don't need to do that
     firebase.login({ provider: 'google', type: 'popup' }).then(({ user }) => {
-      firebase.push('chats', user.uid).then((data) => {
-        firebase.uniqueSet(`chats/${data.key}/members`, [user.uid])
-      })
+      let chatKey
       firebase
-        .uniqueSet(`users/${user.uid}`, { id: user.uid })
-        .catch((err) => console.log(err))
+        .push('chats', user.uid)
+        .then((data) => {
+          chatKey = data.key
+          firebase.uniqueSet(`chats/${chatKey}/members`, [user.uid])
+        })
+        .then(() => {
+          firebase
+            .uniqueSet(`users/${user.uid}`, { id: user.uid, chats: [chatKey] })
+            .catch((err) => console.log(err))
+        })
     })
   }
   return (

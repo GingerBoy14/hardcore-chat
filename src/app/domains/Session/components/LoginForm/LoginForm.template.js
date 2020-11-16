@@ -24,9 +24,6 @@ const LoginForm = (props) => {
   const onFinishFailed = (errorInfo) => {
     console.log('Failed:', errorInfo)
   }
-  const loginWithGoogle = () => {
-    firebase.login({ provider: 'google', type: 'popup' })
-  }
   return (
     <Row justify="center" align="middle" style={{ height: '100%' }}>
       <Col xs={24} sm={20} md={14} lg={10} xl={8} xxl={6} justify="center">

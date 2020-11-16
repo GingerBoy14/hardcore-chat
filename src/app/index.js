@@ -1,5 +1,5 @@
 import { Login, SignUp } from './domains/Session/routes'
-import Chat from './domains/Chat'
+import { Application } from './component/Application'
 import {
   UserIsAuthenticated,
   UserIsNotAuthenticated
@@ -10,7 +10,7 @@ import 'antd/dist/antd.css'
 const App = (props) => {
   return (
     <Switch>
-      <Route path="/chat" component={UserIsAuthenticated(Chat)} />
+      <Route path="/chat" component={UserIsAuthenticated(Application)} />
       <Route path="/signup" component={UserIsNotAuthenticated(SignUp)} />
       <Route path="/" component={UserIsNotAuthenticated(Login)} />
       <Redirect to="/" />
