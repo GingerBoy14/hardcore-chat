@@ -21,6 +21,7 @@ const ChatForm = () => {
     />
   )
   const onSearch = (value) =>
+    value &&
     firebase.push(`messages/${chatId}`, { sender: userId, data: value })
 
   return (
