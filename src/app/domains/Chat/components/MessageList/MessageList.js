@@ -1,41 +1,31 @@
-import { List, Avatar } from 'antd'
+import { List, Avatar, Row, Col } from 'antd'
 import { useSelector } from 'react-redux'
-import { useFirebaseConnect } from 'react-redux-firebase'
+import { Spinner } from '../../../../component/Spinner'
 
 const MessageList = () => {
-  const chatId = useSelector(
-    ({ firebase }) => firebase.requested.user && firebase.data.user.chats[0]
-  )
-  useFirebaseConnect([
-    {
-      path: `messages/${chatId}`,
-      storeAs: 'messages'
-    }
-  ])
-  const data = useSelector(
+  const messages = useSelector(
     ({ firebase }) => firebase.requested.messages && firebase.data.messages
   )
-  console.log(data)
+  if (!messages) {
+    return <Spinner />
+  }
   return (
-    <>
-      {data && (
-        <List
-          itemLayout="horizontal"
-          dataSource={Object.values(data)}
-          renderItem={(item) => (
-            <List.Item>
-              <List.Item.Meta
-                avatar={
-                  <Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />
-                }
-                title={<a href="https://ant.design">{item.sender}</a>}
-                description={item.data}
-              />
-            </List.Item>
-          )}
-        />
+    <List
+      style={{ flex: '1', overflowY: 'auto' }}
+      itemLayout="horizontal"
+      dataSource={Object.values(messages)}
+      renderItem={(item) => (
+        <List.Item>
+          <List.Item.Meta
+            avatar={
+              <Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />
+            }
+            title={<a href="https://ant.design">{item.sender}</a>}
+            description={item.data}
+          />
+        </List.Item>
       )}
-    </>
+    />
   )
 }
 
